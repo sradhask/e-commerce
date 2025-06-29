@@ -1,0 +1,15 @@
+/* Label changes color on focus or filled */
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  color: #e52e71; /* Accent pink */
+}
+
+/* Input text color on focus */
+input:focus {
+  color: #e52e71; /* Accent pink */
+}
+
+/* Input text default color */
+input {
+  color: #333; /* Dark grey */
+}
