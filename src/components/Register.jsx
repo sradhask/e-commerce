@@ -8,7 +8,13 @@ import { toast } from 'react-toastify';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [input, setinput] = useState({ firstname: "", lastname: "", email: "", password: "" });
+  const [input, setinput] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
 
   const getinput = (e) => {
     setinput({ ...input, [e.target.name]: e.target.value });
@@ -16,13 +22,19 @@ const Register = () => {
 
   const Submitdata = async (e) => {
     e.preventDefault();
-    const { email, password } = input;
+    const { email, password, confirmPassword } = input;
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!", {
+        position: 'top-center',
+      });
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      console.log(user);
       if (user) {
         await setDoc(doc(db, "Users", user.uid), {
           email: user.email,
@@ -30,8 +42,6 @@ const Register = () => {
           lastname: input.lastname,
         });
       }
-
-      console.log("The user is Registered Successfully !!");
 
       toast.success("User Registration is successfully!", {
         position: 'top-center',
@@ -49,8 +59,7 @@ const Register = () => {
   return (
     <div
       style={{
-        background:
-          "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
+        background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)",
         minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
@@ -132,6 +141,17 @@ const Register = () => {
           text-align: center;
           letter-spacing: 1.5px;
         }
+
+        @media (max-width: 576px) {
+          form {
+            padding: 30px 20px;
+          }
+
+          .btn-custom {
+            font-size: 16px;
+            padding: 12px;
+          }
+        }
       `}</style>
 
       <Form className="animated-form" onSubmit={Submitdata}>
@@ -170,7 +190,7 @@ const Register = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-4" controlId="formPassword">
+        <Form.Group className="mb-3" controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -181,9 +201,23 @@ const Register = () => {
           />
         </Form.Group>
 
+        <Form.Group className="mb-4" controlId="formConfirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            value={input.confirmPassword}
+            onChange={getinput}
+          />
+        </Form.Group>
+
         <button type="submit" className="btn-custom">
           Submit
         </button>
+         <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          Already have an account? <a href="/login" style={{ color: '#ff4081', fontWeight: '600' }}>Login here</a>
+        </div>
       </Form>
     </div>
   );

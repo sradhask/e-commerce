@@ -35,7 +35,7 @@ const Footer = () => {
 
           {/* Social */}
           <Col md={3} className="mb-4 text-center text-md-start">
-            <h5 className="text-uppercase">Follow Us</h5>
+            <h5 className="text-uppercase fs-6">Follow Us</h5>
             <div className="d-flex justify-content-center justify-content-md-start gap-3 mt-2">
               {socialLinks.map(({ icon: Icon, url, label }, idx) => (
                 <a
@@ -54,9 +54,9 @@ const Footer = () => {
 
           {/* Quick Links */}
           <Col md={3} className="mb-4">
-            <h5 className="text-uppercase">Quick Links</h5>
+            <h5 className="text-uppercase fs-6">Quick Links</h5>
             <Nav className="flex-column">
-              <Nav.Link href="/" className="text-light px-0 py-1">
+              <Nav.Link href="/" className="text-light px-0 py-1 ">
                 Home
               </Nav.Link>
               <Nav.Link href="/about" className="text-light px-0 py-1">
@@ -70,7 +70,7 @@ const Footer = () => {
 
           {/* Contact */}
           <Col md={3} className="mb-4">
-            <h5 className="text-uppercase">Contact</h5>
+            <h5 className="text-uppercase fs-6">Contact us</h5>
             <p className="mb-1">📧 info@yourdomain.com</p>
             <p className="mb-0">📞 +91 12345 67890</p>
           </Col>

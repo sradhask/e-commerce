@@ -1,29 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import test from '../images/pngtree-e-letter-logo-ecommerce-shop-store-design-png-image_7265997-removebg-preview.png';
-import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { FaSearch, FaShoppingCart, FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { auth } from './firebase';
 import { toast } from 'react-toastify';
-
-const navStyle = {
-  color: 'black',
-  fontWeight: '500',
-  textTransform: 'uppercase',
-  textDecoration: 'none',
-};
+import test from '../images/pngtree-e-letter-logo-ecommerce-shop-store-design-png-image_7265997-removebg-preview.png';
+import '../css/Nav.css';
 
 const NavbarComponent = ({ cartCount }) => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const wishlist = () => {
-    navigate('/wishlist');
-  };
-
-  const cartbutton = () => {
-    navigate('/cart');
-  };
+  const cartbutton = () => navigate('/cart');
+  const wishlistbutton = () => navigate('/wishlist');
 
   const logout = async () => {
     try {
@@ -35,51 +25,78 @@ const NavbarComponent = ({ cartCount }) => {
     }
   };
 
+  // 🔍 Only search when user clicks the button
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      const encodedQuery = encodeURIComponent(searchQuery.trim());
+      navigate(`/search?name=${encodedQuery}`);
+    } else {
+      toast.warn('Please enter a search term');
+    }
+  };
+
   return (
-    <Navbar expand="lg" style={{ padding: '2px 0', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-      <Container>
-        <Navbar.Brand as={Link} to="/home" style={{ display: 'flex', alignItems: 'center' }}>
-          <img src={test} alt="logo" style={{ width: '50px', height: 'auto', marginLeft: '50px' }} />
-          <span style={{ color: 'white', fontWeight: 'bold', fontSize: '20px' }}>E-Shop</span>
+    <Navbar expand="lg" className="main-header">
+      <Container className="header-container">
+        {/* Logo */}
+        <Navbar.Brand as={Link} to="/home" className="d-flex align-items-center">
+          <img src={test} alt="logo" style={{ width: '40px', height: 'auto' }} />
+          <span className="brand-name">E-<span className="highlight">Shop</span></span>
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ backgroundColor: 'white' }} />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="m-auto" style={{ alignItems: 'center', display: 'flex', gap: '90px' }}>
-            <Link to="/home" style={navStyle}>Home</Link>
-            <Link to="/about" style={navStyle}>About Us</Link>
-            <Link to="/contact" style={navStyle}>Contact Us</Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
+          {/* Nav Links */}
+          <Nav className="mx-auto nav-links">
+            <Link to="/home" className="nav-link">Home</Link>
+            <Link to="/about" className="nav-link">About Us</Link>
+            <Link to="/contact" className="nav-link">Contact Us</Link>
           </Nav>
 
-          <FaHeart
-            style={{ width: '30px', height: '25px', color: '#ff80ab', cursor: 'pointer' }}
-            onClick={wishlist}
-          />
+          {/* Right Side: Search, Wishlist, Cart, Logout */}
+          <div className="header-icons d-flex align-items-center gap-5">
+            {/* Search Bar */}
+            <form onSubmit={handleSearch} className="search-bar d-flex align-items-center gap-2">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+                className="form-control form-control-sm"
+                style={{ width: '180px' }}
+              />
+              <button type="submit" className="btn btn-sm btn-outline-light">
+                <FaSearch className="icon" />
+              </button>
+            </form>
 
-          <div style={{ position: 'relative', marginLeft: '40px' }}>
-            <FaShoppingCart
-              style={{ width: '30px', height: '25px', cursor: 'pointer' }}
-              onClick={cartbutton}
-            />
-            <span style={{
-              position: 'absolute',
-              top: '-5px',
-              right: '-10px',
-              background: '#ff80ab',
-              borderRadius: '50%',
-              padding: '2px 6px',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              color: 'white'
-            }}>
-              {cartCount}
-            </span>
+            {/* Wishlist Icon */}
+            <div style={{ cursor: 'pointer' }} onClick={wishlistbutton}>
+              <FaHeart className="icon" />
+            </div>
+
+            {/* Cart Icon */}
+            <div style={{ position: 'relative', cursor: 'pointer' }} onClick={cartbutton}>
+              <FaShoppingCart className="icon" />
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
+            </div>
+
+            {/* Logout */}
+            <Button
+              onClick={logout}
+              variant="danger"
+              size="sm"
+              className="logout-btn"
+            >
+              Logout
+            </Button>
           </div>
         </Navbar.Collapse>
       </Container>
-      <Button onClick={logout} style={{ backgroundColor: '#ff80ab', border: 'none', marginRight: '30px' }}>
-        Logout
-      </Button>
     </Navbar>
   );
 };

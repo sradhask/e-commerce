@@ -1,100 +1,131 @@
-:root {
-  --primary-color: #1f1c2c;
-  --accent-color: #6c63ff;
-  --bg-gradient: #ffff;
-  --text-color: #f4f4f4;
-  --card-bg: #ffffff;
-  --input-bg: #f9f9f9;
-  --shadow: rgba(0, 0, 0, 0.15);
-}
-
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
-.contact-container {
-  min-height: 100vh;
-  background: var(--bg-gradient);
+.modern-contact {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
+  flex-wrap: wrap;
+  background-color: #f4ede4;
+  padding: 60px 40px;
+  
+  gap: 40px;
 }
 
-.contact-card {
-  background: var(--card-bg);
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px var(--shadow);
-  max-width: 600px;
-  width: 100%;
+.contact-left-info {
+  flex: 1;
+  width: 700px;
 }
 
-.contact-title {
-  text-align: center;
-  font-size: 2rem;
-  color: var(--accent-color);
-  margin-bottom: 10px;
-}
-
-.contact-subtitle {
-  text-align: center;
-  color: #555;
+.contact-left-info h1 {
+  font-size: 80px;
+  font-weight: bold;
+  color: #ece6dd;
   margin-bottom: 30px;
-  font-size: 1rem;
 }
 
-.contact-form {
+.enquiry-buttons {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  margin-bottom: 50px;
+  gap:15px;
+  
 }
 
-.contact-input,
-.contact-textarea {
-  padding: 14px 18px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: var(--input-bg);
-  transition: all 0.3s ease;
-}
-
-.contact-input:focus,
-.contact-textarea:focus {
-  outline: none;
-  border-color: var(--accent-color);
-  background-color: #eef1ff;
-}
-
-.contact-textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.contact-button {
-  background: var(--accent-color);
-  color: white;
-  padding: 12px;
-  font-size: 1rem;
+.enquiry-buttons button {
+  padding: 10px 25px;
+  border-radius: 30px;
   border: none;
-  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  width: fit-content;
+
 }
 
-.contact-button:hover {
-  background: #ffff;
+.enquiry-buttons .active {
+  background: #000;
+  color: #fff;
 }
 
-.contact-info {
-  margin-top: 30px;
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.6;
+.enquiry-buttons .disabled {
+  background: #fff;
+  color: #ccc;
+  border: 1px solid #ccc;
+  cursor: not-allowed;
+
+}
+
+.contact-left-info address {
+  font-size: 14px;
+  color: #222;
+ 
+}
+.contact-form-modern {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  padding: 20px;
+
+}
+
+
+.contact-form-modern .row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-form-modern input,
+.contact-form-modern textarea {
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  padding: 12px 5px;
+  font-size: 15px;
+  outline: none;
+}
+
+.contact-form-modern textarea {
+  height: 10px;
+  resize: vertical;
+}
+
+.line-label {
+  font-weight: 300;
+  margin: 10px 0 0;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 8px;
+}
+
+.send-button {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.send-button:hover {
+  background-color: #333;
 }

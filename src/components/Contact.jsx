@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import "../css/contact.css";
+import '../css/contact.css';
 import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
+    company: '',
     email: '',
+    phone: '',
     message: ''
   });
+
+  const [loading, setLoading] = useState(false); // ✅ loading state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,15 +22,17 @@ const Contact = () => {
     }));
   };
 
-  const { name, email, message } = formData;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { name, email, message } = formData;
+
     if (!name || !email || !message) {
-      alert('Please fill in all fields.');
+      alert('Please fill in all required fields.');
       return;
     }
+
+    setLoading(true); // ✅ start loading
 
     try {
       const option = {
@@ -34,60 +40,68 @@ const Contact = () => {
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify({ name, email, message })
+        body: JSON.stringify(formData)
       };
 
       const res = await fetch('https://contact-us-c9ad4-default-rtdb.firebaseio.com/Messages.json', option);
       console.log(res);
 
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({
+        name: '',
+        company: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+
       alert('Message sent successfully!');
-      navigate('/home');
+
+      // ✅ Delay before navigation to avoid UX flicker
+      setTimeout(() => {
+        navigate('/contact');
+      }, 1000);
     } catch (err) {
       console.error("Error submitting form:", err);
       alert("Something went wrong. Please try again.");
     }
+
+    setLoading(false); // ✅ end loading
   };
 
   return (
-    <div className="contact-container">
-      <div className="contact-card">
-        <h1 className="contact-title">Let’s Connect</h1>
-        <p className="contact-subtitle">
-          Got a question or proposal? Fill out the form and we’ll get back to you shortly.
-        </p>
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Full Name"
-            className="contact-input"
-            value={name}
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email Address"
-            className="contact-input"
-            value={email}
-            onChange={handleChange}
-          />
-          <textarea
-            name="message"
-            placeholder="Your Message"
-            className="contact-textarea"
-            value={message}
-            onChange={handleChange}
-          />
-          <button type="submit" className="contact-button">Send Message</button>
-        </form>
-        <div className="contact-info">
-          <p><strong>📍 Address:</strong> 123 Modern Blvd, Neon City</p>
-          <p><strong>📧 Email:</strong> Eshop@gmail.com</p>
-          <p><strong>📞 Phone:</strong> +1 (800) 123-4567</p>
+    <div className="modern-contact">
+      <div className="contact-left-info">
+        <h1>Contact</h1>
+
+        <div className="enquiry-buttons">
+          <button className="active">Retail Enquiries</button>
+          <button className="disabled">Join Mailing List</button>
         </div>
+
+        <address>
+          <p>ADDRESS</p>
+          <p>206 Blenheim Way<br />Unit 2-C<br />Concord, ON, Canada<br />L4K 4P4</p>
+        </address>
       </div>
+
+      <form className="contact-form-modern" onSubmit={handleSubmit}>
+        <div className="row">
+          <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} />
+        </div>
+        <div className="row">
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+        </div>
+        <p className="line-label">Want to know more? Drop us a line!</p>
+        <textarea name="message" placeholder="Your Message" value={formData.message} onChange={handleChange}></textarea>
+
+        <div className="bottom-row">
+          <button type="submit" className="send-button" disabled={loading}>
+            {loading ? 'Sending...' : 'Send'}
+          </button>
+       
+
+        </div>
+      </form>
     </div>
   );
 };

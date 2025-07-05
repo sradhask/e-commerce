@@ -40,3 +40,46 @@
   margin: 10px auto 0;
   border-radius: 2px;
 }
+/* Home.css */
+
+.slider-container {
+  width: 200%;
+  max-width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.slider-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+}
+
+.slider-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Show full image without cropping */
+  display: block;
+  margin: 0 auto;
+  max-height: 150vh; /* Prevents overflow on small screens */
+  padding: 0;
+
+}
+@media (max-width: 768px) {
+  .slider-image {
+    max-height: 100vh; /* adjust based on your design */
+  }
+
+  .slider-container {
+    margin-bottom: 1rem; /* or remove this if still too much space */
+  }
+}
+

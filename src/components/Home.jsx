@@ -33,6 +33,7 @@ const Home = () => {
   const [cartCount, setCartCount] = useState(0);
   const [wishlistItems, setWishlistItems] = useState([]);
 
+
   const images = [tes1, test2];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -130,41 +131,44 @@ useEffect(() => {
     'https://via.placeholder.com/300/FF0000'
   ];
  const roundedImages = [
-  { src: test7, label: "Home Appliance" },
+  { src: test7, label: "Home Appliance"},
   { src: test8, label: "Kids" },
   { src: test9, label: "Women" },
   { src: tes10, label: "Fashion" },
-  { src: test11, label: "Accessories" },
+  { src: test11, label: "Men" },
   { src: test12, label: "Bags" },
 ];
 
 
   return (
     <div>
-
       <NavbarComponent cartCount={cartCount} />
+<img
+  src={images[currentImageIndex]}
+  alt="slider"
+  className="slider-image"
+/>
 
-      <div className="slider-container">
-        <img
-          src={images[currentImageIndex]}
-          alt="slider"
-          className="slider-image fade-in-out"
-        />
-      </div>
+
 
 
          <div>
-   <div className="d-flex flex-wrap gap-5 justify-content-center my-4">
+   <div className="d-flex flex-wrap gap-5 justify-content-center my-5">
   {roundedImages.map(({ src, label }, idx) => (
     <div key={idx} className="text-center">
       <Image
-        src={src}
-        roundedCircle
-        width={150}
-        height={150}
-        alt={label}
-         style={{ cursor: 'pointer' }}
-      />
+  src={src}
+  roundedCircle
+  alt={label}
+  width={150}
+  height={150}
+  style={{
+    objectFit: 'cover',
+    cursor: 'pointer',
+    border: '1px solid #ccc',
+  }}
+/>
+
       <div style={{ marginTop: '8px', fontWeight: 'bold' }}>{label}</div>
     </div>
   ))}

@@ -1,0 +1,76 @@
+.main-header {
+  background-color: white;
+  border-bottom: 1px solid #eee;
+ 
+  font-family: 'Poppins', sans-serif;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 600;
+  margin-left: 10px;
+  color: #111;
+}
+
+.brand-name .highlight {
+  color: #ff80ab;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links .nav-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.nav-links .nav-link:hover {
+  color: #ff80ab;
+}
+
+.header-icons .icon {
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: #ff80ab;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+.logout-btn {
+  background-color: #ff80ab;
+  border: none;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 30px;
+}
+
+.search-dropdown {
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
+
+.search-result-item:hover {
+  background-color: #f8f9fa;
+}

@@ -15,6 +15,8 @@ import Payment from './components/Payment';
 import NavbarComponent from './components/Navbar';
 import Footer from './components/Footer';
 import { ToastContainer } from 'react-toastify';
+import Aboutserach from './components/Aboutserach';
+
 
 const AppLayout = () => {
   const location = useLocation();
@@ -53,6 +55,8 @@ const AppLayout = () => {
         <Route path='/productdetails/:id' element={<Productdetails />} />
         <Route path='/buy' element={<Buynow />} />
         <Route path='/payment' element={<Payment />} />
+        <Route path='/search' element={<Aboutserach />}/>
+       
       </Routes>
 
       {/* ✅ Show footer only on selected pages */}
